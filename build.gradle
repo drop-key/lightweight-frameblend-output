@@ -1,0 +1,91 @@
+plugins {
+	id "net.fabricmc.fabric-loom" version "${loom_version}"
+}
+
+base {
+	archivesName = "lightweight-frameblend-output"
+}
+
+loom {
+	accessWidenerPath = file("src/main/resources/frameblendoutput.accesswidener")
+}
+
+String getVersion() {
+	String version = "${project.mod_version}"
+	return version
+}
+version = getVersion()
+group = project.maven_group
+
+repositories {
+	maven { url "https://maven.terraformersmc.com/"}
+	maven { url "https://api.modrinth.com/maven"}
+	maven { url 'https://jitpack.io' }
+	flatDir {
+		dirs 'libs'
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+	implementation("com.terraformersmc:modmenu:${project.modmenu_version}")
+	testImplementation "junit:junit:4.13.2"
+}
+
+test {
+	useJUnit()
+	systemProperty "fbo.verifyGpu", project.hasProperty("verifyRecordingGpu")
+	systemProperty 'frameblendoutput.rgbaRolling', project.hasProperty('rgbaRolling')
+	jvmArgs "--enable-native-access=ALL-UNNAMED"
+	workingDir = projectDir
+}
+
+tasks.register('benchmarkRecordingShaders', JavaExec) {
+	dependsOn tasks.named('testClasses')
+	classpath = sourceSets.test.runtimeClasspath
+	mainClass = 'net.frameblend.output.recording.RecordingShaderBenchmark'
+	jvmArgs '--enable-native-access=ALL-UNNAMED'
+	args file('src/main/resources/assets/frameblendoutput/shaders/post/frame_blending_direct.fsh').absolutePath,
+			file('src/main/resources/assets/frameblendoutput/shaders/post/rolling_exposure.fsh').absolutePath
+}
+
+tasks.register('verifySpoutTransport', JavaExec) {
+	dependsOn tasks.named('testClasses')
+	classpath = sourceSets.test.runtimeClasspath
+	mainClass = 'net.frameblend.output.recording.VulkanSpoutProbe'
+	jvmArgs '--enable-native-access=ALL-UNNAMED'
+	systemProperty 'frameblendoutput.synchronousSpout', project.hasProperty('synchronousSpout')
+	systemProperty 'fbo.benchmarkVulkanRecording', project.hasProperty('benchmarkVulkanRecording')
+	systemProperty 'frameblendoutput.rgbaRolling', project.hasProperty('rgbaRolling')
+	workingDir = projectDir
+	systemProperty 'frameblendoutput.copySpout', project.hasProperty('copySpout')
+	systemProperty 'fbo.verifyDirectX', project.hasProperty('verifyDirectX')
+	systemProperty 'fbo.directXOnly', project.hasProperty('directXOnly')
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = "UTF-8"
+	it.options.release = 25
+}
+
+java {
+	withSourcesJar()
+}
+
+jar {
+	from("NOTICE")
+	from("LICENSE") {
+		rename { "${it}_${base.archivesName.get()}" }
+	}
+}
