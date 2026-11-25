@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "frameblendoutput",
+  "version": "${version}",
+  "name": "Lightweight Frameblend Output",
+  "description": "Frame-blended motion blur output for OBS using Spout.",
+  "authors": [
+    "dropkey"
+  ],
+  "license": "LGPL-3.0",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "net.frameblend.output.FrameblendOutputMod"
+    ],
+    "modmenu": [
+      "net.frameblend.output.config.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "frameblendoutput.mixins.json"
+  ],
+  "accessWidener": "frameblendoutput.accesswidener",
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "breaks": {
+    "vulkanmod": "*"
+  },
+  "icon": "assets/frameblendoutput/textures/gui/icon.png"
+}
