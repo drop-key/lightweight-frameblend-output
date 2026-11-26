@@ -74,8 +74,8 @@ public final class VulkanSpoutProbe {
         RenderSystem.initRenderer(device);
         boolean directXOnly = Boolean.getBoolean("fbo.directXOnly");
         if (!directXOnly) {
-        System.load(Path.of("src/main/resources/natives/win64/SpoutLibrary.dll").toAbsolutePath().toString());
-        System.load(Path.of("src/main/resources/natives/win64/fbo_spout_bridge.dll").toAbsolutePath().toString());
+        System.load(Path.of("build/generated-resources/natives/win64/SpoutLibrary.dll").toAbsolutePath().toString());
+        System.load(Path.of("build/generated-resources/natives/win64/fbo_spout_bridge.dll").toAbsolutePath().toString());
         var version = SpoutBridge.class.getDeclaredMethod("nBridgeVersion");
         version.setAccessible(true);
         if ((int)version.invoke(null) < 37) throw new AssertionError("Old bridge");

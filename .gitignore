@@ -1,0 +1,8 @@
+/run/
+/.gradle/
+/.idea/
+/build/
+/logs/
+/native/.build/
+/.native-tools/
+/src/main/resources/natives/win64/*.dll

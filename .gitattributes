@@ -1,0 +1,5 @@
+* text=auto eol=lf
+*.dll binary
+*.jar binary
+*.png binary
+*.zip binary

@@ -1,0 +1,14 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        gradlePluginPortal()
+    }
+}
+rootProject.name = "frameblend-output"
+
+// Include Git rules in the complete release source archive.
+org.apache.tools.ant.DirectoryScanner.removeDefaultExclude('**/.gitattributes')
+org.apache.tools.ant.DirectoryScanner.removeDefaultExclude('**/.gitignore')

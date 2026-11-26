@@ -35,6 +35,40 @@ dependencies {
 	testImplementation "junit:junit:4.13.2"
 }
 
+def generatedResources = layout.buildDirectory.dir('generated-resources')
+sourceSets.main.resources.srcDir(generatedResources)
+tasks.register('buildNative', Exec) {
+	workingDir projectDir
+	commandLine 'pwsh', '-NoProfile', '-File', file('native/build.ps1').absolutePath,
+			'-OutputDirectory', generatedResources.get().dir('natives/win64').asFile.absolutePath
+	inputs.files(fileTree('native') { exclude '.build/**' }, fileTree('ci'))
+	outputs.dir(generatedResources)
+}
+processResources.dependsOn tasks.named('buildNative')
+processResources.eachFile { details ->
+	// Ignore obsolete checked-in binaries even in an incompletely updated clone.
+	// Only buildNative's output is eligible for release packaging.
+	if (details.file.toPath().startsWith(file('src/main/resources/natives/win64').toPath())) {
+		details.exclude()
+	}
+}
+tasks.withType(AbstractArchiveTask).configureEach {
+	preserveFileTimestamps = false
+	reproducibleFileOrder = true
+}
+
+tasks.register('releaseSources', Zip) {
+	includeEmptyDirs = false
+	archiveFileName = "${base.archivesName.get()}-${project.version}-source.zip"
+	destinationDirectory = layout.buildDirectory.dir('distributions')
+	from(projectDir) {
+		include 'src/**', 'native/**', 'ci/**', '.github/**', 'gradle/**'
+		include '.gitattributes', '.gitignore', 'build.gradle', 'settings.gradle', 'gradle.properties', 'gradlew', 'gradlew.bat', 'LICENSE', 'NOTICE', 'README.md', 'BUILDING.md'
+		exclude 'native/.build/**', 'src/main/resources/natives/win64/*.dll'
+		into 'lightweight-frameblend-output'
+	}
+}
+
 test {
 	useJUnit()
 	systemProperty "fbo.verifyGpu", project.hasProperty("verifyRecordingGpu")
@@ -81,6 +115,11 @@ tasks.withType(JavaCompile).configureEach {
 
 java {
 	withSourcesJar()
+}
+
+tasks.named('sourcesJar') {
+	dependsOn tasks.named('buildNative')
+	exclude 'natives/**'
 }
 
 jar {

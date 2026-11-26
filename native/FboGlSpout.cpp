@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: LGPL-3.0-only
 #include <jni.h>
-#include "third_party/Spout/SpoutLibrary.h"
+#include "third_party/Spout/SpoutLibrary/SpoutLibrary.h"
 #include <vector>
 #include <cstring>
 

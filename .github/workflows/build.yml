@@ -1,0 +1,61 @@
+name: Build release from source
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-2025
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Install checksum-locked Java and native compiler
+        run: |
+          $tools = ./ci/setup-toolchains.ps1
+          "JAVA_HOME=$($tools.JavaHome)" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "FBO_NATIVE_COMPILER=$($tools.Compiler)" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Build all DLLs, run CPU tests, and package the mod
+        run: |
+          ./gradlew.bat clean build releaseSources --no-daemon
+          if ($LASTEXITCODE -ne 0) { throw 'Gradle build failed' }
+
+      - name: Rebuild native code into a separate directory
+        run: |
+          ./native/build.ps1 -BuildDirectory build/native-objects-second -OutputDirectory build/native-second
+
+      - name: Verify both native builds and the packaged DLLs
+        run: |
+          $jar = Get-ChildItem build/libs/*.jar | Where-Object { !$_.Name.EndsWith('-sources.jar') }
+          ./ci/verify-native.ps1 -Jar $jar.FullName -CompareDirectory build/native-second
+
+      - name: Collect release files, source, provenance and checksums
+        run: ./ci/collect-release.ps1
+
+      - name: Upload reviewable release artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: lightweight-frameblend-output-${{ github.sha }}
+          path: build/release/*
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: test-reports-${{ github.sha }}
+          path: build/reports/tests/test/
+          if-no-files-found: ignore

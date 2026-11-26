@@ -1,19 +1,13 @@
-# Frameblend Output native bridges
+# Frameblend Output native code
 
-`FboDxSpout.cpp` publishes shared Vulkan textures through DirectX 11 using GPU timeline fences and nonblocking reuse checks. Its integer texel copy preserves pixel values and image orientation.
+All three native libraries are built from the source in this directory:
 
-`FboGlSpout.cpp` supplies the OpenGL and readback publisher through the bundled SpoutLibrary COM-like interface. All calls run with the publisher's OpenGL context current.
+- `FboDxSpout.cpp`: direct Vulkan/DirectX Spout publisher.
+- `FboGlSpout.cpp`: JNI OpenGL/readback bridge through SpoutLibrary's COM-like interface.
+- `third_party/Spout/SpoutLibrary/SpoutLibrary.cpp` and `SpoutGL/`: the SpoutLibrary implementation. No precompiled SpoutLibrary DLL is used.
 
-Use JDK 25 and LLVM-MinGW 20261117 (Windows x86_64 UCRT). From the repository root:
+The DirectX publisher also uses `third_party/Spout/SpoutDX/SpoutDX.cpp` and the common Spout sources. The SDK files are unmodified copies from revision 2bd42d21cd1825b2fd61224d914c555e59545ab5 of leadedge/Spout2. `third_party/Spout/UPSTREAM.json` records the upstream paths and SHA-256 hashes. Existing copyright and license notices are retained.
 
-```powershell
-$env:JAVA_HOME = 'C:/path/to/jdk-25'
-./native/build.ps1 -Compiler 'C:/path/to/llvm-mingw/bin/clang++.exe'
-./gradlew.bat build
-```
+`build.ps1` compiles every required translation unit and links all three DLLs. Its default output is `build/generated-resources/natives/win64/`. Gradle runs this script before packaging resources. Objects are generated under `build/` and are never used as release inputs from the repository.
 
-The script writes `fbo_spout_dx.dll` and `fbo_spout_bridge.dll` into `src/main/resources/natives/win64/`. Object files are cached in `native/.build/`.
-
-The selected unmodified Spout2 sources and interface header are vendored under `third_party/Spout/`, from revision 2bd42d21cd1825b2fd61224d914c555e59545ab5. Copyright and license notices are retained. Runtime notices are bundled under `src/main/resources/META-INF/licenses/`.
-
-The native verification task uses separate FBO probe sender names and does not modify OBS settings.
+See [BUILDING.md](../BUILDING.md) for the public GitHub Actions workflow, pinned toolchain bootstrap, independent rebuild checks, and exact packaged-DLL verification. The native verification task uses separate FBO sender names and does not modify OBS settings.

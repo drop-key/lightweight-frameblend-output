@@ -1,0 +1,16 @@
+{
+  "llvm_mingw": {
+    "version": "20261117",
+    "directory": "llvm-mingw-20261117-ucrt-x86_64",
+    "url": "https://github.com/mstorsjo/llvm-mingw/releases/download/20261117/llvm-mingw-20261117-ucrt-x86_64.zip",
+    "sha256": "4d002e330a0f703625aa5ccbc37e96f8f824413e163bfc7336774aabd2c3a412"
+  },
+  "jdk": {
+    "version": "jdk-25.0.5.1+2",
+    "directory": "jdk-25.0.5.1+2",
+    "url": "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.5.1%2B2/OpenJDK25U-jdk_x64_windows_hotspot_25.0.5.1_2.zip",
+    "sha256": "849d380ab0a64d9098e7d3a2de28beb73841c3b255c8284f019ccd8748c5eb5b"
+  },
+  "spout_revision": "2bd42d21cd1825b2fd61224d914c555e59545ab5",
+  "gradle_wrapper_sha256": "497c8c2a7e5031f6aa847f88104aa80a93532ec32ee17bdb8d1d2f67a194a9c7"
+}

@@ -11,7 +11,7 @@ import java.util.Locale;
 final class DirectXSpoutProbe {
     static void run(GpuDevice device, VulkanDevice backend, RenderTarget current, RenderTarget previous,
                     RenderTarget next, RenderTarget output, RenderTarget source, RollingExposure<RenderTarget> delta) throws Exception {
-        System.load(Path.of("src/main/resources/natives/win64/fbo_spout_dx.dll").toAbsolutePath().toString());
+        System.load(Path.of("build/generated-resources/natives/win64/fbo_spout_dx.dll").toAbsolutePath().toString());
         var loaded = DxSpoutBridge.class.getDeclaredField("loaded"); loaded.setAccessible(true); loaded.set(null, true);
         if (!Boolean.getBoolean("fbo.directXOnly")) verifyReceiver(device, backend, output, "FBO Vulkan Probe");
         System.setProperty("frameblendoutput.spoutSenderName", "FBO DirectX Probe");

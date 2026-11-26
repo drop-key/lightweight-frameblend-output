@@ -1,0 +1,114 @@
+{
+  "repository": "https://github.com/leadedge/Spout2",
+  "revision": "2bd42d21cd1825b2fd61224d914c555e59545ab5",
+  "files": {
+    "SpoutGL/Spout.cpp": {
+      "upstream_path": "SPOUTSDK/SpoutGL/Spout.cpp",
+      "sha256": "09fb618096a19eae06586a240b5a1dab810ff4b6e391e94f8e24b57186d40c62"
+    },
+    "SpoutGL/Spout.h": {
+      "upstream_path": "SPOUTSDK/SpoutGL/Spout.h",
+      "sha256": "b1035d7f45cb9a923eb763f2d67c13087f38a05a44117a2b0359e2f3b8e14151"
+    },
+    "SpoutGL/SpoutCopy.cpp": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutCopy.cpp",
+      "sha256": "e83684d1890002095a9d17cd1007f8ff0d29298e87bbb152a179847232890c95"
+    },
+    "SpoutGL/SpoutCopy.h": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutCopy.h",
+      "sha256": "7ff811e5d4414cb3ec290eece991a530001658f72c1854363a38af7ac05deb44"
+    },
+    "SpoutGL/SpoutDirectX.cpp": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutDirectX.cpp",
+      "sha256": "014c6af04ea0870e9fdedcb6815be9470d5c93fefe94f320805fc461c3228e84"
+    },
+    "SpoutGL/SpoutDirectX.h": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutDirectX.h",
+      "sha256": "15e0a64f6ddfc0f01644d20e9f6db139d5d2c9f7dc0684310d6a51ab48264bbd"
+    },
+    "SpoutGL/SpoutFrameCount.cpp": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutFrameCount.cpp",
+      "sha256": "3f6d1278461f8def8bfec647bf07d7e750e6adbbd67b3ea8d1ee9cf2745b7bf4"
+    },
+    "SpoutGL/SpoutFrameCount.h": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutFrameCount.h",
+      "sha256": "11222877fa02f0201d25e008f868ab6d106435ffbf8ec764045a0d10c12c3639"
+    },
+    "SpoutGL/SpoutGL.cpp": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutGL.cpp",
+      "sha256": "4c2c5a695b238c689536461a78a8eee16b346afbd850ffabcbd99bbaed9a14d3"
+    },
+    "SpoutGL/SpoutGL.h": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutGL.h",
+      "sha256": "79898b4bc95baa732c0bac0b14f0a6469498bca5fc4eda1e731264fc10b39750"
+    },
+    "SpoutGL/SpoutGLextensions.cpp": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutGLextensions.cpp",
+      "sha256": "dd87449a8e0963e0f96a29d4464de4fcf6f98fa8d28c0593984dc4a153cfb18a"
+    },
+    "SpoutGL/SpoutGLextensions.h": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutGLextensions.h",
+      "sha256": "0bcfacc857d6ae5be89038613040e4b60e050be9d24ad8691877c94ac200c74e"
+    },
+    "SpoutGL/SpoutReceiver.cpp": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutReceiver.cpp",
+      "sha256": "4417a5fc90c7e1fe61026a01bcc912fb594959b277bfa491f05cd119cd011c3d"
+    },
+    "SpoutGL/SpoutReceiver.h": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutReceiver.h",
+      "sha256": "e78e771c437c9fb8234811cbcae969950e11b8afe2283d05d7e79fb78fc852b7"
+    },
+    "SpoutGL/SpoutSender.cpp": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutSender.cpp",
+      "sha256": "32a2bb56f43842f7f0d8b415d3887256e3c85222f0ed9154cae4c67d1e439fb2"
+    },
+    "SpoutGL/SpoutSender.h": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutSender.h",
+      "sha256": "38338c35ac36b32fd18f861578d2420c40ddec8601f4db711bca0a35dcaabaef"
+    },
+    "SpoutGL/SpoutSenderNames.cpp": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutSenderNames.cpp",
+      "sha256": "1c07cd5121f06813898f9f73183df65ba274b975d5b23c4bd5b2b871de45c7d2"
+    },
+    "SpoutGL/SpoutSenderNames.h": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutSenderNames.h",
+      "sha256": "13d2e70ee589ea1c651bbf4d7b18047b6f5ded7344ef9fc007dc1cd68bb22508"
+    },
+    "SpoutGL/SpoutSharedMemory.cpp": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutSharedMemory.cpp",
+      "sha256": "b6f0cbae6967f78751659c38555d978954addd91587cb5bd0f443d7a2064a6b8"
+    },
+    "SpoutGL/SpoutSharedMemory.h": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutSharedMemory.h",
+      "sha256": "8dd2871eccac7fbbd148791bbc30a29880f9eb334bce9b3ed639d1730e6a2807"
+    },
+    "SpoutGL/SpoutUtils.cpp": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutUtils.cpp",
+      "sha256": "70a1b02a38e2b39fa17a83e2dc653c05a82907fd57859ca78003cf55cea9f4ef"
+    },
+    "SpoutGL/SpoutUtils.h": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutUtils.h",
+      "sha256": "efd0a3e835034c18ecfcb3d92a4c850a9fb1345c3791696d12206893aac4f66d"
+    },
+    "SpoutGL/SpoutCommon.h": {
+      "upstream_path": "SPOUTSDK/SpoutGL/SpoutCommon.h",
+      "sha256": "8f754d98f33ebf8da869c91c6818303a8c8ba03f956164f249ddcfcbb34f50a0"
+    },
+    "SpoutLibrary/SpoutLibrary.cpp": {
+      "upstream_path": "SPOUTSDK/SpoutLibrary/SpoutLibrary.cpp",
+      "sha256": "db29e3cd6a4502ebcbdfe89893253240b40783fe12c74ea4d5ab487c726da5d5"
+    },
+    "SpoutLibrary/SpoutLibrary.h": {
+      "upstream_path": "SPOUTSDK/SpoutLibrary/SpoutLibrary.h",
+      "sha256": "9173ef5c7eca19b3afee8dccce783ccb2362570790ec37539a746c535e943042"
+    },
+    "SpoutDX/SpoutDX.cpp": {
+      "upstream_path": "SPOUTSDK/SpoutDirectX/SpoutDX/SpoutDX.cpp",
+      "sha256": "2613c5285b46963f7715923b3ffc0b85df616ac6e621c49f885658cb4f88684f"
+    },
+    "SpoutDX/SpoutDX.h": {
+      "upstream_path": "SPOUTSDK/SpoutDirectX/SpoutDX/SpoutDX.h",
+      "sha256": "7980c73ce81cae1ebd8736881e42a1b2c48aeb74aa81e5b90b8dad1e90d145b6"
+    }
+  }
+}
