@@ -16,8 +16,12 @@ public abstract class MixinMappableRingBuffer {
     @Shadow @Final private GpuBuffer[] buffers;
     @Shadow @Final private GpuFence[] fences;
 
-    @Inject(method = "close", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "close", at = @At(value = "FIELD",
+            target = "Lnet/minecraft/client/renderer/MappableRingBuffer;buffers:[Lcom/mojang/blaze3d/buffers/GpuBuffer;",
+            ordinal = 0), cancellable = true)
     private void fbo$closeAllocatedSlots(CallbackInfo ci) {
+        // Run after HEAD callbacks: Polydium releases its persistent mappings
+        // there, and Vulkan rejects closing a buffer that is still mapped.
         // Lunar/other mods may resize these arrays independently or rewrite the
         // original fixed loop bound. Their actual lengths are authoritative.
         RingBufferCleanup.close(buffers, fences);

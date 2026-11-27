@@ -45,6 +45,11 @@ other moderation concerns separately before resubmitting.
 - Normal CPU/shader/configuration tests run in hosted CI. GPU pixel/Spout tests
   require physical graphics hardware and are not claimed to run on the hosted
   runner.
+- A headless Fabric compatibility probe runs the actual transformed Minecraft
+  ring-buffer cleanup method. It verifies that other mods' mapping-release HEAD
+  callbacks run before buffers close, with both higher and lower Mixin priorities,
+  unequal buffer/fence capacities, and repeated cleanup. The probe is a separate
+  test mod and is not bundled in the installable JAR.
 
 These checks establish build provenance and matching bytes, not a proof that
 arbitrary native code is safe. The source remains available for inspection.

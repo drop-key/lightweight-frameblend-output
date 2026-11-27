@@ -35,6 +35,33 @@ dependencies {
 	testImplementation "junit:junit:4.13.2"
 }
 
+sourceSets {
+	compatTest {
+		compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+	}
+}
+
+def ringBufferCompatJar = tasks.register('ringBufferCompatJar', Jar) {
+	archiveClassifier = 'compat-probe'
+	destinationDirectory = layout.buildDirectory.dir('compat-test')
+	from sourceSets.compatTest.output
+}
+
+tasks.register('verifyRingBufferCompatibility', JavaExec) {
+	dependsOn tasks.named('jar'), ringBufferCompatJar
+	classpath = files(tasks.named('jar').flatMap { it.archiveFile },
+			ringBufferCompatJar.flatMap { it.archiveFile }) + configurations.runtimeClasspath
+	mainClass = 'net.fabricmc.loader.impl.launch.knot.KnotClient'
+	systemProperty 'fabric.development', 'true'
+	systemProperty 'java.awt.headless', 'true'
+	jvmArgs '--enable-native-access=ALL-UNNAMED'
+	doFirst {
+		workingDir layout.buildDirectory.dir('compat-test').get().asFile
+		workingDir.mkdirs()
+	}
+}
+tasks.named('check') { dependsOn tasks.named('verifyRingBufferCompatibility') }
+
 def generatedResources = layout.buildDirectory.dir('generated-resources')
 sourceSets.main.resources.srcDir(generatedResources)
 tasks.register('buildNative', Exec) {

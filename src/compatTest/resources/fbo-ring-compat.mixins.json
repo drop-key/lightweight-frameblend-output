@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.frameblend.output.compat.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": ["EarlyMappingCleanupMixin", "LateMappingCleanupMixin"],
+  "injectors": {"defaultRequire": 1}
+}

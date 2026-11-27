@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "id": "fbo_ring_compat_probe",
+  "version": "1.0",
+  "environment": "client",
+  "entrypoints": {
+    "preLaunch": ["net.frameblend.output.compat.RingBufferCompatibilityProbe"]
+  },
+  "mixins": ["fbo-ring-compat.mixins.json"]
+}
